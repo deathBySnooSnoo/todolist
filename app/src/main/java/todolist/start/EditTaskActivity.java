@@ -18,12 +18,17 @@ public class EditTaskActivity extends ActionBarActivity {
 
     private String date;
     private String time;
+    private SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_task);
         //GET TASK INFO FROM DB
+        TaskDBHelper tdbh = new TaskDBHelper(this.findViewById(android.R.id.content).getContext());
+        db = tdbh.getWritableDatabase();
+        String[] projection = {TaskContract.Task.COLUMN_NAME_TASK_NAME, TaskContract.Task.COLUMN_NAME_TASK_DESCRIPTION, TaskContract.Task.COLUMN_NAME_TASK_DUE_DATE, TaskContract.Task.COLUMN_NAME_TASK_DUE_TIME};
+
     }
 
     @Override
@@ -74,8 +79,8 @@ public class EditTaskActivity extends ActionBarActivity {
     public void done(View v){
         EditText taskName = (EditText) findViewById(R.id.edit_text_task_name);
         EditText taskDescription = (EditText) findViewById(R.id.edit_text_task_description);
-        TaskDBHelper tdbh = new TaskDBHelper(v.getContext());
-        SQLiteDatabase db = tdbh.getWritableDatabase();
+        //TaskDBHelper tdbh = new TaskDBHelper(v.getContext());
+        //SQLiteDatabase db = tdbh.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(TaskContract.Task.COLUMN_NAME_TASK_NAME, taskName.getText().toString());
         values.put(TaskContract.Task.COLUMN_NAME_TASK_DESCRIPTION, taskDescription.getText().toString());
