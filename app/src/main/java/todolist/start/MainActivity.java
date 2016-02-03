@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -50,10 +51,8 @@ public class MainActivity extends ActionBarActivity {
         Cursor c = db.query(TaskContract.Task.TABLE_NAME, projection, "*", null, null, null, null);
         c.moveToFirst();
         String taskName = c.getString(c.getColumnIndexOrThrow(TaskContract.Task.COLUMN_NAME_TASK_NAME));
-        TextView taskView = new TextView(this);
-        taskView.setText(taskName);
-        RelativeLayout rl = (RelativeLayout) findViewById(R.id.activity_main);
-        rl.addView(taskView);
+        ListView lv = (ListView) findViewById(R.id.list_view_task_list);
+        
     }
 
     public void newTask(MenuItem menuItem){
